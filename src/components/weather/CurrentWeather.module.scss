@@ -1,0 +1,38 @@
+.current-weather {
+    display: inline-block;
+    color: white;
+  }
+  
+  .datetime {
+    text-align: center;
+  
+    .datetime__date {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  
+    .datetime__time {
+      font-size: 4rem;
+    }
+  }
+  
+  .weather-symbol {
+    display: flex;
+  
+    align-items: center;
+  
+    padding: 2rem;
+  
+    .weather-icon {
+      width: 20rem;
+    }
+  
+    .temperature {
+      display: flex;
+      font-size: 10rem;
+  
+      .temperature__unit {
+        font-size: 3rem;
+      }
+    }
+  }
