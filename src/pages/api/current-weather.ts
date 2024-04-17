@@ -26,6 +26,8 @@ export default async function handler(
         console.error(error);
       }
     }
+  } else {
+    res.status(405).send("Method Not Allowed");
   }
 }
 
