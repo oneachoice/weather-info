@@ -1,15 +1,19 @@
+import useCurrentDate from "@/hooks/useCurrentDate";
 import styles from "./CurrentWeather.module.scss";
 
 import { fontDoHyeon } from "@/fonts/dohyeon";
+import { getFullDate, getFullTime } from "@/util/date";
 
 export default function CurrentWeather() {
+  const currentDate = useCurrentDate();
+  const fullDate = getFullDate(currentDate);
+  const fullTime = getFullTime(currentDate);
+
   return (
     <div className={styles["current-weather"]} style={fontDoHyeon.style}>
       <div className={styles["datetime"]}>
-        <p className={styles["datetime__date"]}>2024-04-16</p>
-        <p className={styles["datetime__time"]}>
-          <span>오후</span> 12:06
-        </p>
+        <p className={styles["datetime__date"]}>{fullDate}</p>
+        <p className={styles["datetime__time"]}>{fullTime}</p>
       </div>
       <div className={styles["weather-symbol"]}>
         <img
