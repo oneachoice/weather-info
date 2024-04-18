@@ -54,10 +54,11 @@ async function getCurrentWeatherData(latitude: string, longitude: string) {
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.OPENWEATHERMAP_API_KEY}&lang=${LANG}&units=${UNITS}`
   );
 
-  if (apiResponse.status >= 500) {
-    throw new HTTPError("openweathermap api 서버 에러", apiResponse.status);
-  } else if (apiResponse.status >= 400) {
-    throw new Error("openweathermap api로 잘못된 요청을 하였습니다.");
+  if (apiResponse.status >= 300) {
+    throw new HTTPError(
+      `${apiResponse.status} : Response from openweathermap api`,
+      apiResponse.status
+    );
   }
 
   const currentWeatherData = await apiResponse.json();
