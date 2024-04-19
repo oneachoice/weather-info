@@ -1,24 +1,28 @@
+@mixin square-size($size) {
+  width: $size;
+  height: $size;
+}
+
 .current-weather {
+  box-sizing: border-box;
+
   display: inline-block;
-  
+
+  width: 100%;
   padding: 2rem;
   
-  border-radius: 10px;
-  
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .datetime {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
+  border-bottom: 1px solid white;
 
   text-align: center;
 
   font-size: 1.2rem;
 
-
-  border-bottom: 1px solid white;
   .datetime__date {
     margin-bottom: 0.5rem;
   }
@@ -28,17 +32,16 @@
   display: flex;
 
   align-items: center;
+  justify-content: center;
+
 
   .weather-icon {
-    $icon-size: 7rem;
-    width: $icon-size;
-    height: $icon-size;
+    @include square-size(7rem);
   }
 
   .temperature {
     display: flex;
     font-size: 5rem;
-    padding-right: 1.5rem;
 
     .temperature__unit {
       font-size: 2rem;
