@@ -15,8 +15,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles["page-container"]}>
-        <CurrentWeather />
+      <main className={styles["page"]}>
+        <div className={styles["grid-container"]}>
+          <div className={styles["current-weather"]}>
+            <CurrentWeather />
+          </div>
+          <div className={styles["forecast"]}></div>
+        </div>
       </main>
     </>
   );

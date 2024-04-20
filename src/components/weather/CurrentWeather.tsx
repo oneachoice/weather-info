@@ -1,4 +1,3 @@
-import useCurrentDate from "@/hooks/useCurrentDate";
 import styles from "./CurrentWeather.module.scss";
 
 import { fontDoHyeon } from "@/fonts/dohyeon";
@@ -7,25 +6,23 @@ import useCurrentWeatherData from "@/hooks/useCurrentWeatherData";
 import Image from "next/image";
 
 export default function CurrentWeather() {
-  const currentDate = useCurrentDate();
-  const fullDate = getFullDate(currentDate);
-  const fullTime = getFullTime(currentDate);
-
-  const [currentWeatherData, refresh] = useCurrentWeatherData();
+  const currentWeatherData = useCurrentWeatherData();
 
   let imgSrc = require("@/assets/openweathermap/not-available.svg");
   let temperature: number | string = "-";
+  let date: Date | null = null;
 
   if (currentWeatherData) {
     imgSrc = require(`@/assets/openweathermap/${currentWeatherData.weather[0].icon}.svg`);
     temperature = Math.round(currentWeatherData.main.temp);
+    date = new Date(currentWeatherData.dt * 1000);
   }
 
   return (
     <div className={styles["current-weather"]} style={fontDoHyeon.style}>
       <div className={styles["datetime"]}>
-        <p className={styles["datetime__date"]}>{fullDate}</p>
-        <p className={styles["datetime__time"]}>{fullTime}</p>
+        <p className={styles["datetime__date"]}>{date ? getFullDate(date) : ""}</p>
+        <p className={styles["datetime__time"]}>{date ? getFullTime(date) : ""}</p>
       </div>
       <div className={styles["weather-symbol"]}>
         <Image

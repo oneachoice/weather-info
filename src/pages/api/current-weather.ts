@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dotenv from "dotenv";
 import { HTTPError } from "@/classes/custom-error";
+import axios from "axios";
 
 // Initialize the process.env
 dotenv.config();
@@ -50,9 +51,16 @@ async function getCurrentWeatherData(latitude: string, longitude: string) {
   const LANG = "kr";
   const UNITS = "metric";
 
-  const apiResponse = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.OPENWEATHERMAP_API_KEY}&lang=${LANG}&units=${UNITS}`
-  );
+  const apiResponse = await axios.get("/data/2.5/weather", {
+    baseURL: "https://api.openweathermap.org",
+    params: {
+      lat: latitude,
+      lon: longitude,
+      appid: process.env.OPENWEATHERMAP_API_KEY,
+      lang: LANG,
+      units: UNITS
+    }
+  })
 
   if (apiResponse.status >= 300) {
     throw new HTTPError(
@@ -61,7 +69,7 @@ async function getCurrentWeatherData(latitude: string, longitude: string) {
     );
   }
 
-  const currentWeatherData = await apiResponse.json();
+  const currentWeatherData = await apiResponse.data;
 
   return currentWeatherData;
 }
