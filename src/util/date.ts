@@ -3,7 +3,7 @@ import { changeDecimalFormat } from "./format";
 export function getFullDate(date: Date) {
   return `${getWeekDay(date)}요일, ${date.getFullYear()}년 ${
     date.getMonth() + 1
-  }월 ${date.getDay()}일`;
+  }월 ${date.getDate()}일`;
 }
 
 export function getFullTime(date: Date) {
