@@ -1,75 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import dotenv from "dotenv";
-import { HTTPError } from "@/classes/custom-error";
-import axios from "axios";
-
-// Initialize the process.env
-dotenv.config();
+import { extractCoords, fetchCurrentWeather } from "@/control/openweathermap";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    try {
-      const { latitude, longitude } = getPosition(req);
+    const coords = extractCoords(req);
 
-      const currentWeatherData = await getCurrentWeatherData(
-        latitude,
-        longitude
-      );
-
-      res.send(currentWeatherData);
-    } catch (error) {
-      if (error instanceof HTTPError) {
-        res.status(error.status).send(error.message);
-      } else {
-        console.error(error);
-      }
+    if (!coords) {
+      res.status(400).send("위도, 경도 값을 받지 못했습니다");
+      return;
     }
+
+    res.send(
+      (await fetchCurrentWeather(coords.latitude, coords.longitude)).data
+    );
+    
   } else {
     res.status(405).send("Method Not Allowed");
   }
-}
-
-function getPosition(req: NextApiRequest) {
-  const { longitude, latitude } = req.query;
-
-  if (!longitude || !latitude) {
-    throw new HTTPError("위도 또는 경도 값을 얻지 못하였습니다.", 400);
-  }
-
-  if (typeof longitude === "string" && typeof latitude === "string") {
-    return { longitude, latitude };
-  } else {
-    throw new HTTPError("잘못된 위도 값 또는 경도 값입니다.", 400);
-  }
-}
-
-async function getCurrentWeatherData(latitude: string, longitude: string) {
-  // 향후 변경 기능이 추가될 수 있음.
-  const LANG = "kr";
-  const UNITS = "metric";
-
-  const apiResponse = await axios.get("/data/2.5/weather", {
-    baseURL: "https://api.openweathermap.org",
-    params: {
-      lat: latitude,
-      lon: longitude,
-      appid: process.env.OPENWEATHERMAP_API_KEY,
-      lang: LANG,
-      units: UNITS
-    }
-  })
-
-  if (apiResponse.status >= 300) {
-    throw new HTTPError(
-      `${apiResponse.status} : Response from openweathermap api`,
-      apiResponse.status
-    );
-  }
-
-  const currentWeatherData = await apiResponse.data;
-
-  return currentWeatherData;
 }
