@@ -4,18 +4,33 @@ import { NextApiRequest } from "next";
 
 dotenv.config();
 
-export async function fetchCurrentWeather(latitude: string, longitude: string) {
-  const LANG = "kr";
-  const UNITS = "metric";
+const LANG = "kr";
+const UNITS = "metric";
+const BASE_URL = "https://api.openweathermap.org";
 
+export async function fetchCurrentWeather(latitude: string, longitude: string) {
   return await axios.get("/data/2.5/weather", {
-    baseURL: "https://api.openweathermap.org",
+    baseURL: BASE_URL,
     params: {
       lat: latitude,
       lon: longitude,
       appid: process.env.OPENWEATHERMAP_API_KEY,
-      lang: LANG,
       units: UNITS,
+      lang: LANG,
+    },
+  });
+}
+
+export async function fetchForecast(latitude: string, longitude: string) {
+  return await axios.get("/data/2.5/forecast", {
+    baseURL: BASE_URL,
+    params: {
+      lat: latitude,
+      lon: longitude,
+      appid: process.env.OPENWEATHERMAP_API_KEY,
+      units: UNITS,
+      cnt: 10,
+      lang: LANG,
     },
   });
 }
