@@ -3,7 +3,7 @@ import { fetchCurrentWeatherData } from "@/util/fetch";
 import { getCoords } from "@/util/location";
 import { useEffect, useState } from "react";
 
-export default function useCurrentWeatherData() {
+export function useCurrentWeatherData() {
   const [currentWeatherData, setCurrentWeatherData] =
     useState<CurrentWeatherData>();
 

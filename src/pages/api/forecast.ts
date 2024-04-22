@@ -1,6 +1,4 @@
-import { HTTPError } from "@/classes/custom-error";
 import { extractCoords, fetchForecast } from "@/control/openweathermap";
-import axios from "axios";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 

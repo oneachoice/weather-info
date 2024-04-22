@@ -2,7 +2,7 @@ import styles from "./CurrentWeather.module.scss";
 
 import { fontDoHyeon } from "@/fonts/dohyeon";
 import { getFullDate, getFullTime } from "@/util/date";
-import useCurrentWeatherData from "@/hooks/useCurrentWeatherData";
+import { useCurrentWeatherData } from "@/hooks/weather";
 import Image from "next/image";
 
 export default function CurrentWeather() {
@@ -21,8 +21,12 @@ export default function CurrentWeather() {
   return (
     <div className={styles["current-weather"]} style={fontDoHyeon.style}>
       <div className={styles["datetime"]}>
-        <p className={styles["datetime__date"]}>{date ? getFullDate(date) : ""}</p>
-        <p className={styles["datetime__time"]}>{date ? getFullTime(date) : ""}</p>
+        <p className={styles["datetime__date"]}>
+          {date ? getFullDate(date) : ""}
+        </p>
+        <p className={styles["datetime__time"]}>
+          {date ? getFullTime(date) : ""}
+        </p>
       </div>
       <div className={styles["weather-symbol"]}>
         <Image
