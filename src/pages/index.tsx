@@ -2,6 +2,7 @@ import CurrentWeather from "@/components/weather/CurrentWeather";
 import styles from "./Home.module.scss";
 
 import Head from "next/head";
+import Forecast from "@/components/weather/Forecast";
 
 export default function Home() {
   return (
@@ -20,7 +21,9 @@ export default function Home() {
           <div className={styles["current-weather"]}>
             <CurrentWeather />
           </div>
-          <div className={styles["forecast"]}></div>
+          <div className={styles["forecast"]}>
+            <Forecast />
+          </div>
         </div>
       </main>
     </>
