@@ -10,7 +10,7 @@ export function useCurrentWeatherData() {
   const [currentWeatherData, setCurrentWeatherData] =
     useState<CurrentWeatherData>();
 
-  useInit(setCurrentWeatherData);
+  useInit(setCurrentWeatherData, fetchCurrentWeatherData);
 
   return currentWeatherData;
 }
@@ -18,15 +18,18 @@ export function useCurrentWeatherData() {
 export function useForecastData() {
   const [forecastData, setForecastData] = useState<ForecastData>();
 
-  useInit(setForecastData);
+  useInit(setForecastData, fetchForecastData);
 
   return forecastData;
 }
 
-function useInit(dispatch: Dispatch<SetStateAction<any>>) {
+function useInit(
+  dispatch: Dispatch<SetStateAction<any>>,
+  fetchData: (coords: GeolocationCoordinates) => Promise<any>
+) {
   useEffect(() => {
     (async () => {
-      dispatch(await fetchCurrentWeatherData(await getCoords()));
+      dispatch(await fetchData(await getCoords()));
     })();
-  }, [dispatch]);
+  }, [dispatch, fetchData]);
 }
