@@ -7,11 +7,7 @@ export function getFullDate(date: Date) {
 }
 
 export function getFullTime(date: Date) {
-  const meridiem = date.getHours() >= 12 ? "오후" : "오전";
-  const hours = changeDecimalFormat(
-    meridiem === "오후" ? date.getHours() - 12 : date.getHours(),
-    2
-  );
+  const { meridiem, hours } = getMeridiem(date);
   const minutes = changeDecimalFormat(date.getMinutes(), 2);
 
   return `${meridiem} ${hours}:${minutes}`;
@@ -36,4 +32,28 @@ export function getWeekDay(date: Date) {
     default:
       return "?";
   }
+}
+
+export function getMeridiem(date: Date, lang: string = "KR") {
+  const result: {
+    meridiem: string;
+    hours: Number;
+  } = {
+    meridiem: "",
+    hours: -1,
+  };
+
+  switch (lang) {
+    case "EN":
+      result.meridiem = date.getHours() >= 12 ? "PM" : "AM";
+      break;
+    case "KR":
+    default:
+      result.meridiem = date.getHours() >= 12 ? "오후" : "오전";
+      break;
+  }
+
+  result.hours = date.getHours() >= 12 ? date.getHours() - 12 : date.getHours();
+
+  return result;
 }
