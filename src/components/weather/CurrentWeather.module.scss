@@ -1,7 +1,4 @@
-@mixin square-size($size) {
-  width: $size;
-  height: $size;
-}
+@import "/src/styles/_mixins.scss";
 
 .current-weather {
   box-sizing: border-box;
