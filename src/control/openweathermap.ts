@@ -29,7 +29,7 @@ export async function fetchForecast(latitude: string, longitude: string) {
       lon: longitude,
       appid: process.env.OPENWEATHERMAP_API_KEY,
       units: UNITS,
-      cnt: 10,
+      cnt: 24,
       lang: LANG,
     },
   });
