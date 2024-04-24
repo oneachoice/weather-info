@@ -1,0 +1,64 @@
+@import "/src/styles/_mixins.scss";
+
+.current-weather {
+  box-sizing: border-box;
+
+  display: inline-block;
+
+  width: 100%;
+  
+  color: white;
+}
+
+.datetime {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid white;
+
+  text-align: center;
+
+  font-size: 1.2rem;
+
+  .datetime__date {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.weather-symbol {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+
+  .weather-icon {
+    @include square-size(7rem);
+  }
+
+  .temperature {
+    display: flex;
+    font-size: 5rem;
+
+    .temperature__unit {
+      font-size: 2rem;
+    }
+  }
+}
+
+.weather-info {
+  display: flex;
+  justify-content: center;
+
+  table {
+    display: inline-block;
+    font-size: 1.2rem;
+
+    tr > td:nth-of-type(1) {
+      padding: 0 2rem 0.3rem 0;
+    }
+
+    tr > td:nth-of-type(2) {
+      text-align: right;
+    }
+  }
+}

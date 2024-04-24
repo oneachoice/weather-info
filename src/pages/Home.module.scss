@@ -1,0 +1,14 @@
+.page {
+  background-color: #1d355e;
+  overflow: auto;
+  min-height: 100vh;
+}
+
+.grid-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.current-weather {
+  padding: 2rem;
+}
