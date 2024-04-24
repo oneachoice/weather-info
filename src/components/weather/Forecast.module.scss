@@ -1,19 +1,18 @@
 @import "/src/styles/mixins";
 
-.forecast {
-}
-
 .forecast__list {
+  max-width: 425px;
+  margin: 0 auto;
 }
 
 .forecast__item {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.25);
 
   border-radius: 10px;
 
   display: grid;
 
-  grid-template-columns: auto 1fr 1fr;
+  grid-template-columns: auto 1fr auto;
 
   padding: 0.5rem;
   margin: 1rem 0;
@@ -32,12 +31,12 @@
     padding: 0.5rem;
 
     .date__day {
-      font-size: 2rem;
+      font-size: 1.3rem;
       margin-bottom: 0.2rem;
     }
 
     .date__time {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
   }
 }
@@ -45,14 +44,14 @@
 .item__body {
   display: flex;
   align-items: center;
-  justify-self: center;
+  justify-self: left;
 
   .img {
-    @include square-size(5rem);
+    @include square-size(3.5rem);
   }
 
   .desc {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }
 
@@ -62,14 +61,11 @@
 
   table {
     td {
-        padding: 0.2rem;
-    }
-
-    td:nth-of-type(1) {
+      padding: 0.2rem;
     }
 
     td:nth-of-type(2) {
-        text-align: right;
+      text-align: right;
     }
   }
 }
